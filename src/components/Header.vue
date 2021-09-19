@@ -10,7 +10,7 @@
         <div class="options">
             <div class="wallet">
                 <img src="../assets/icon_wallet_green.png">
-                {{defaultAddress}}
+                {{isLogin?defaultAddress:'Connect to wallet'}}
             </div>
             <div class="lang">
                 English
@@ -55,14 +55,16 @@
               <a target="_black" href="/"><img src="../assets/icon_reddit.png"></a>
           </div>
           </div>
-          
         </el-drawer>
+        <Ipopup></Ipopup>
     </div>
 </template>
 <script>
 import {plusXing} from '../utils/tronwebFn'
+import Ipopup from './ipopup.vue'
 export default {
   name: 'Header',
+  components:{Ipopup},
   computed: {
     language() {
       return this.$i18n.locale
@@ -83,7 +85,8 @@ export default {
       lang:false,
       tolerPop:false,
       active:localStorage.getItem('active'),
-      defaultAddress:''
+      defaultAddress:'',
+      isLogin:false
     }
   },
   watch: {
@@ -130,6 +133,7 @@ export default {
     this.$initTronWeb().then(function(tronWeb) {
       let defaultAddress = window.tronWeb.defaultAddress.base58
       that.defaultAddress = plusXing(defaultAddress,5,5)
+      that.isLogin = true
     })
   },
 }
@@ -186,13 +190,16 @@ export default {
             height:40px;
             background:#1D7112;
             display:flex;
-            justify-content: space-around;
+            justify-content:center;
             border-radius:28px;
             font-size:18px;
             color:#FFFFFF;
             align-items: center;
+            font-family: Roboto-Regular, Roboto;
+            cursor: pointer;
             img{
                 width:24px;
+                margin-right:10px;
             }
         }
         .lang{
