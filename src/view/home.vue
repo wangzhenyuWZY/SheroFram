@@ -1,22 +1,22 @@
 <template>
   <div class="container">
-    <Header></Header>
+    <Header @toFea='scrollFeature' @toFaq="scrollFaq"></Header>
     <div class="panel1">
       <div class="btns">
         <a class="btn" target="_black"><img src="../assets/b.png"></a>
         <a class="btn" target="_black"><img src="../assets/c.png"></a>
       </div>
-      <router-link to="/" class="play">
+      <a @click="linkTo(1)" class="play">
         <img src="../assets/a.png">
-      </router-link>
+      </a>
     </div>
-    <div class="panel2">
+    <div class="panel2" id="feature">
       <img src="../assets/img_05.png">
     </div>
     <div class="panel3">
-      <img src="../assets/img_05.png">
+      <img src="../assets/img02.png">
     </div>
-    <div class="panel4">
+    <div class="panel4" id="faq">
       <img src="../assets/img_07.png">
     </div>
     <Footer></Footer>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
 export default {
@@ -59,18 +60,25 @@ export default {
       }
   },
   methods: {
-    handleSetLanguage() {
-      // 选择语言
-      let lang = this.$i18n.locale
-      if(lang=='ch'){
-        this.$i18n.locale = 'en'
-      }else{
-        this.$i18n.locale = 'ch'
-      }
-      window.localStorage.setItem('lang', this.$i18n.locale)
-      this.drawer = false
-      this.scrollto = 0
+    linkTo(i){
+      localStorage.setItem('active',i)
+      this.$router.push('/Features')
     },
+    scrollFeature(){
+      this.$el.querySelector('#feature').scrollIntoView({
+                    behavior: "smooth",  // 平滑过渡
+                    block:    "start"  // 上边框与视窗顶部平齐。默认值
+                });
+    },
+    scrollFaq(){
+      this.$el.querySelector('#faq').scrollIntoView({
+                    behavior: "smooth",  // 平滑过渡
+                    block:    "start"  // 上边框与视窗顶部平齐。默认值
+                });
+    }
+  },
+  created(){
+    
   }
 }
 </script>
@@ -87,7 +95,7 @@ export default {
     display: flex;
     justify-content: center;
     .btns{
-      margin-top:30%;
+      margin-top:38%;
       margin-right:10px;
       .btn{
         display:block;
@@ -99,7 +107,7 @@ export default {
       }
     }
     .play{
-      margin-top:30%;
+      margin-top:38%;
       img{
         width:388px;
       }
@@ -117,11 +125,13 @@ export default {
   }
   .panel3{
     height:1667px;
-    background:url(../assets/img_03.png) no-repeat center;
+    background:url(../assets/farm12.png) no-repeat center;
     background-size:100% 100%;
     text-align:center;
+    padding:80px 0 115px;
+    box-sizing: border-box;
     img{
-      
+      width:1400px;
     }
   }
   .panel4{
@@ -135,12 +145,53 @@ export default {
     }
   }
 }
+@media screen and (max-width:900px) {
+  .container{
+    .panel1{
+      height:auto;
+      .btns{
+        .btn{
+          img{
+            width:160px;
+          }
+        }
+      }
+      .play{
+        img{
+           width:186px;
+        }
+      }
+    }
+    .panel2{
+      height:auto;
+      padding:0 10px;
+      img{
+        width:100%;
+        margin:30px 0;
+      }
+    }
+    .panel3{
+      height:auto;
+      padding:30px 10px;
+      img{
+        width:100%;
+      }
+    }
+    .panel4{
+      height :auto;
+      padding:0 10px;
+      img{
+        width:100%;
+      }
+    }
+  }
+}
 </style>
 <style >
   .el-drawer,.drawer_body {
       width: 60% !important;
       height: 100% !important;
-      background: url(/src/assets/itembg.png) center center / 100% 100% no-repeat;
+      /* background: url(/src/assets/itembg.png) center center / 100% 100% no-repeat; */
       outline: 0;
   }
   /*.el-drawer__wrapper {*/

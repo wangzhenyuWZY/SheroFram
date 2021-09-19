@@ -26,4 +26,15 @@
         }
     }
 }
+@media screen and (max-width:900px) {
+    .footer{
+        height:auto;
+        padding:20px 0;
+        p{
+            font-size:12px;
+            line-height:16px;
+            padding:0 30px;
+        }
+    }
+}
 </style>

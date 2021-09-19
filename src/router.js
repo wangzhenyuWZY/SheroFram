@@ -11,9 +11,9 @@ const router = createRouter({
             component: () => import('./view/home.vue')
         },
         {
-            path: '/Features',
-            name: 'Features',
-            component: () => import('./view/features.vue')
+            path: '/staking',
+            name: 'staking',
+            component: () => import('./view/staking.vue')
         }
     ]
 })
