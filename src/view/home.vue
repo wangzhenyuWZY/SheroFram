@@ -186,6 +186,15 @@ export default {
     }
   }
 }
+@media screen and (max-width:1400px) {
+  .container .panel1 .play,.container .panel1 .btns{margin-top:35%;}
+}
+@media screen and (max-width:1920px) {
+  .container .panel1 .play,.container .panel1 .btns{margin-top:35%;}
+}
+@media screen and (min-width:1920px) {
+  .container .panel1 .play,.container .panel1 .btns{margin-top:30%;}
+}
 </style>
 <style >
   .el-drawer,.drawer_body {
