@@ -56,7 +56,7 @@
           </div>
           </div>
         </el-drawer>
-        <Ipopup></Ipopup>
+        <Ipopup v-show="contPop"></Ipopup>
     </div>
 </template>
 <script>
@@ -86,7 +86,8 @@ export default {
       tolerPop:false,
       active:localStorage.getItem('active'),
       defaultAddress:'',
-      isLogin:false
+      isLogin:false,
+      contPop:false
     }
   },
   watch: {
