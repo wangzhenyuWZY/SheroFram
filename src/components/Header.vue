@@ -6,6 +6,7 @@
             <a class="menu" :class="active==1?'active':''" @click="linkTo(1)" to="/Features">Features</a>
             <a class="menu" :class="active==2?'active':''" @click="linkTo(2)" to="/">FAQ</a>
             <a class="menu" :class="active==3?'active':''" @click="linkTo(3)" to="/">Stake</a>
+            <a class="menu" href="https://sheroswap.org/#/pool/connectpool" target="_black">Swap</a>
         </div>
         <div class="options">
             <div class="wallet" @click="showLinkPop">
