@@ -1,11 +1,10 @@
 <template>
   <el-dialog
       title=""
-      :visible.sync="showAlert"
-      :width="_isMobile?'90%':'480px'"
+      v-model="showAlert"
+      :width="_isMobile?'90%':'420px'"
       custom-class="dialog_selct"
-      :close-on-click-modal="false"
-      :before-close="handleClosea">
+      :before-close="closePop">
     <span slot="title" class="select_size">
       <span>Connect to Wallet</span>
       <img class="select_title" src="../assets/icon_instructions.png" alt="">
@@ -18,12 +17,6 @@
           </button>
         </div>
       </div>
-      <div class="con-p">
-        <samp class="con-p1">Haven't installed TronLink yet?
-          <samp class="con-p2">Click here>></samp>
-        </samp>
-
-      </div>
 
     </div>
   </el-dialog>
@@ -31,13 +24,12 @@
 
 <script>
 export default {
+  props:['showAlert'],
   data() {
     return {
       value: '',
-      showAlert: false,
       connect: null,
       index: 1,
-      mobile: IsPc(),
       conter: 1
       // tokenList: tokenData.tokenList,
     }
@@ -57,21 +49,17 @@ export default {
 
   },
   methods: {
-    handleClosea() {
-      this.showAlert = false
-      // this.$emit('closeAlert')
-    },
     tlink() {
       this.connectWill()
     },
     connectWill() {
       const that = this
-      web3.eth.getAccounts().then(res=>{
-          this.$emit('contented')
+      window.tronWeb.on('addressChanged', function() {
+          that.$emit('contented')
       })
     },
-    show() {
-      this.showAlert = true
+    closePop() {
+      this.$emit('closePop')
     }
   }
 }
@@ -108,45 +96,7 @@ export default {
   margin-top: 40px;
 }
 
->>> .dialog_selct {
-  width: 480px;
-  height: 273px;
-  background: #142028;
-  border-radius: 20px;
-}
->>> .dialog_selct .el-icon-close {
-  font-size: 28px;
-  color: #fff;
-}
->>> .dialog_selct .el-icon-close:hover {
-  color: #fff;
-}
->>> .el-dialog__body {
-  padding: 0;
-}
-.conter {
-  padding: 0 32px;
-}
->>> .el-dialog__header {
-  padding: 28px 32px 0px;
-}
->>> .el-dialog__headerbtn {
-  top: 24px;
-  right: 34px;
-}
->>> .search__input {
-}
->>> .search__input .el-input__inner {
-  border-radius: 32px;
-  border: 1px solid#FC6446;
-  border-radius: 32px;
-  padding-left: 77px;
-  font-size: 18px;
-}
->>> .search__input .el-input__inner::placeholder {
-  color: #b7bfc8;
-  font-size: 18px;
-}
+
 .search__box {
   margin-top: 25px;
   margin-bottom: 33px;
@@ -165,23 +115,25 @@ export default {
   font-weight: normal;
 }
 .currency_list {
-  width: 416px;
-  height: 80px;
-  background: #23323C;
-  border-radius: 16px;
+  width: 260px;
+  height: 40px;
+  background: #fff;
+  border-radius: 10px;
   overflow-y: scroll;
-  margin-bottom: 32px;
+  margin:0 auto;
+  display:flex;
+  justify-content: center;
+  align-item:center;
+  cursor: pointer;
 }
 .con-but {
-  background: #23323C;
   height: 24px;
   font-size: 20px;
   font-family: roboto-mediumitalic;
   font-weight: 400;
   color: #0f1730;
   line-height: 24px;
-  margin-top: 26px;
-  margin-left: 123px;
+  line-height:40px;
 }
 
 .currency_list::-webkit-scrollbar {
@@ -194,7 +146,7 @@ export default {
 }
 </style>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 @media screen and (max-width: 750px) {
   .currency_list {
     width: 100%;
@@ -212,5 +164,46 @@ export default {
   .conter {
     padding: 0 20px;
   }
+}
+</style>
+<style>
+.dialog_selct {
+  width: 420px;
+  height: 180px;
+  background: #142028;
+  border-radius: 20px;
+}
+.dialog_selct .el-icon-close {
+  font-size: 28px;
+  color: #fff;
+}
+.dialog_selct .el-icon-close:hover {
+  color: #fff;
+}
+.el-dialog__body {
+  padding: 0;
+}
+.conter {
+  padding: 0 32px;
+}
+.el-dialog__header {
+  padding: 28px 32px 0px;
+}
+.el-dialog__headerbtn {
+  top: 24px;
+  right: 34px;
+}
+ .search__input {
+}
+.search__input .el-input__inner {
+  border-radius: 32px;
+  border: 1px solid#FC6446;
+  border-radius: 32px;
+  padding-left: 77px;
+  font-size: 18px;
+}
+.search__input .el-input__inner::placeholder {
+  color: #b7bfc8;
+  font-size: 18px;
 }
 </style>

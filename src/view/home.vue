@@ -62,7 +62,7 @@ export default {
   methods: {
     linkTo(i){
       localStorage.setItem('active',i)
-      this.$router.push('/Features')
+      this.$router.push('/staking')
     },
     scrollFeature(){
       this.$el.querySelector('#feature').scrollIntoView({

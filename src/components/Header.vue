@@ -8,7 +8,7 @@
             <a class="menu" :class="active==3?'active':''" @click="linkTo(3)" to="/">Stake</a>
         </div>
         <div class="options">
-            <div class="wallet">
+            <div class="wallet" @click="showLinkPop">
                 <img src="../assets/icon_wallet_green.png">
                 {{isLogin?defaultAddress:'Connect to wallet'}}
             </div>
@@ -56,7 +56,7 @@
           </div>
           </div>
         </el-drawer>
-        <Ipopup v-show="contPop"></Ipopup>
+        <Ipopup :showAlert="contPop" @closePop="contPop=false" @contented="connectWallet"></Ipopup>
     </div>
 </template>
 <script>
@@ -100,6 +100,20 @@ export default {
       }
   },
   methods: {
+    showLinkPop(){
+      if(!this.isLogin){
+        this.contPop = true
+      }
+    },
+    connectWallet(){
+      let that = this
+      this.contPop = false
+      this.$initTronWeb().then(function(tronWeb) {
+        let defaultAddress = window.tronWeb.defaultAddress.base58
+        that.defaultAddress = plusXing(defaultAddress,5,5)
+        that.isLogin = true
+      })
+    },
       linkTo(i){
           localStorage.setItem('active',i)
           this.active = i
@@ -132,6 +146,7 @@ export default {
   created() {
     let that = this
     this.$initTronWeb().then(function(tronWeb) {
+      that.contPop = false
       let defaultAddress = window.tronWeb.defaultAddress.base58
       that.defaultAddress = plusXing(defaultAddress,5,5)
       that.isLogin = true

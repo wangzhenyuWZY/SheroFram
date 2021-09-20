@@ -54,9 +54,12 @@
                                         <input v-model="item.stakePutNum">
                                         <span @click="item.stakePutNum = item.balance">MAX</span>
                                     </div>
-                                    <div class="formBtns">
+                                    <div class="formBtns" v-show="isLogin">
                                         <el-button class="btn active" :loading="item.doApproved" :disabled="item.doApproved" v-show="!item.isApproved && item.name!=='TRX'" @click="toApprove(item,index,0)">Approve</el-button>
                                         <el-button class="btn" :class="item.isApproved || item.name == 'TRX'?'isAll active':''" :disabled="!item.isApproved && item.name!=='TRX'" @click="doDeposit(item,index)">Deposit</el-button>
+                                    </div>
+                                    <div class="formBtns" v-show="!isLogin">
+                                        <el-button class="btn active isAll" @click="contPop = true">Unclock Wallet</el-button>
                                     </div>
                                 </div>
                             </div>
@@ -70,8 +73,11 @@
                                         <input v-model="item.withPutNum">
                                         <span @click="item.withPutNum = item.unBalance">MAX</span>
                                     </div>
-                                    <div class="formBtns">
+                                    <div class="formBtns" v-show="isLogin">
                                         <el-button class="btn isAll" :class="item.unBalance>0?'active':''" :disabled="item.unBalance==0" @click="doExit(item,index)">Withdraw</el-button>
+                                    </div>
+                                    <div class="formBtns" v-show="!isLogin">
+                                        <el-button class="btn active isAll" @click="contPop = true">Unclock Wallet</el-button>
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +87,8 @@
                                     <p class="nums">{{item.noWithdrow.NFTO}}<span>NFTO</span></p>
                                 </div>
                                 <div class="claimCon">
-                                    <el-button class="claimbtn" @click="claimed(item,index)">Claim</el-button>
+                                    <el-button class="claimbtn" @click="claimed(item,index)" v-show="isLogin">Claim</el-button>
+                                    <el-button class="claimbtn" @click="contPop = true" v-show="!isLogin">Unclock Wallet</el-button>
                                     <p class="fee">2% fee for claiming</p>
                                 </div>
                             </div>
@@ -129,9 +136,12 @@
                                         <input v-model="item.stakePutNum">
                                         <span @click="item.stakePutNum = item.balance">MAX</span>
                                     </div>
-                                    <div class="formBtns">
+                                    <div class="formBtns" v-show="isLogin">
                                         <el-button class="btn active" :loading="item.doApproved" :disabled="item.doApproved" v-show="!item.isApproved" @click="toApprove(item,index,1)">Approve</el-button>
                                         <el-button class="btn" :class="item.isApproved?'isAll active':''" :disabled="!item.isApproved" @click="doDeposit(item,index)">Deposit</el-button>
+                                    </div>
+                                    <div class="formBtns" v-show="!isLogin">
+                                        <el-button class="btn active isAll" @click="contPop = true">Unclock Wallet</el-button>
                                     </div>
                                 </div>
                             </div>
@@ -145,15 +155,19 @@
                                         <input v-model="item.withPutNum">
                                         <span @click="item.withPutNum = item.unBalance">MAX</span>
                                     </div>
-                                    <div class="formBtns">
+                                    <div class="formBtns" v-show="isLogin">
                                         <el-button class="btn isAll" :class="item.unBalance>0?'active':''" :disabled="item.unBalance==0" @click="doExit(item,index)">Withdraw</el-button>
+                                    </div>
+                                    <div class="formBtns" v-show="!isLogin">
+                                        <el-button class="btn active isAll" @click="contPop = true">Unclock Wallet</el-button>
                                     </div>
                                 </div>
                             </div>
                             <div class="earnCon">
                                 <div class="claimCon">
                                     <p class="unClaim">{{item.noWithdrow.NFTO}} NFTO</p>
-                                    <el-button class="claimbtn" @click="claimed(item,index)">Claim</el-button>
+                                    <el-button class="claimbtn" @click="claimed(item,index)" v-show="isLogin">Claim</el-button>
+                                    <el-button class="claimbtn" @click="contPop = true" v-show="!isLogin">Unclock Wallet</el-button>
                                     <p class="fee">2% fee for claiming</p>
                                 </div>
                             </div>
@@ -201,9 +215,12 @@
                                         <input v-model="item.stakePutNum">
                                         <span @click="item.stakePutNum = item.balance">MAX</span>
                                     </div>
-                                    <div class="formBtns">
+                                    <div class="formBtns" v-show="isLogin">
                                         <el-button class="btn active" :loading="item.doApproved" :disabled="item.doApproved" v-show="!item.isApproved" @click="toApprove(item,index,2)">Approve</el-button>
                                         <el-button class="btn" :class="item.isApproved?'isAll active':''" :disabled="!item.isApproved" @click="doDeposit(item,index)">Deposit</el-button>
+                                    </div>
+                                    <div class="formBtns" v-show="!isLogin">
+                                        <el-button class="btn active isAll" @click="contPop = true">Unclock Wallet</el-button>
                                     </div>
                                 </div>
                             </div>
@@ -217,15 +234,19 @@
                                         <input v-model="item.withPutNum">
                                         <span @click="item.withPutNum = item.unBalance">MAX</span>
                                     </div>
-                                    <div class="formBtns">
+                                    <div class="formBtns" v-show="isLogin">
                                         <el-button class="btn isAll" :class="item.unBalance>0?'active':''" :disabled="item.unBalance==0" @click="doExit(item,index)">Withdraw</el-button>
+                                    </div>
+                                    <div class="formBtns" v-show="!isLogin">
+                                        <el-button class="btn active isAll" @click="contPop = true">Unclock Wallet</el-button>
                                     </div>
                                 </div>
                             </div>
                             <div class="earnCon">
                                 <div class="claimCon">
                                     <p class="unClaim">{{item.noWithdrow.NFTO}} NFTO</p>
-                                    <el-button class="claimbtn" @click="claimed(item,index)">Claim</el-button>
+                                    <el-button class="claimbtn" @click="claimed(item,index)" v-show="isLogin">Claim</el-button>
+                                    <el-button class="claimbtn" @click="contPop = true" v-show="!isLogin">Unclock Wallet</el-button>
                                     <p class="fee">2% fee for claiming</p>
                                 </div>
                             </div>
@@ -256,6 +277,7 @@
             </div>
         </div>
         <Footer></Footer>
+        <Ipopup :showAlert="contPop" @closePop="contPop=false" @contented="connectWallet"></Ipopup>
     </div>
 </template>
 <script>
@@ -263,6 +285,7 @@ import BigNumber from 'bignumber.js'
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
 import ipConfig from '../config/contracts.js'
+import Ipopup from '../components/ipopup.vue'
 import {
   approved,
   allowance,
@@ -277,7 +300,7 @@ import poscheimg from '../assets/farm8.png'
 
 export default {
   name: 'staking',
-  components:{Header,Footer},
+  components:{Header,Footer,Ipopup},
   computed: {
     language() {
       return this.$i18n.locale
@@ -298,6 +321,7 @@ export default {
       lang:false,
       sucPop:false,
       selPop:false,
+      contPop:false,
       pool1Active:0,
       pool2Active:1,
       pool3Active:1,
@@ -305,6 +329,7 @@ export default {
       tips:'',
       nftoBalance:0,
       totalEarnNfto:0,
+      isLogin:false,
       pool1List:[
           {
               poool:1,
@@ -432,6 +457,19 @@ export default {
          this.getAllwance()
          this.getNftoBalance()
      },
+     showLinkPop(){
+      if(!this.isLogin){
+        this.contPop = true
+      }
+    },
+    connectWallet(){
+      this.contPop = false
+      const that = this
+      this.$initTronWeb().then(function(tronWeb) {
+          that.isLogin = true
+        that.init()
+      })
+    },
      async getNftoBalance(){
         const tokenContract = await window.tronWeb.contract().at(ipConfig.NFTO)
         const tokenBalance = await tokenContract['balanceOf'](window.tronWeb.defaultAddress.base58).call()
@@ -524,6 +562,8 @@ export default {
         }
     },
     async doDeposit(item,index){
+        this.$message.success('Comming Soon!')
+        return
       let that = this  
       if(item.name == 'TRX'){
           let Contract = await window.tronWeb.contract().at(item.farmAddress)
@@ -559,6 +599,8 @@ export default {
       })
     },
     async claimed(item,index){
+        this.$message.success('Comming Soon!')
+        return
       let that = this  
       let num = new BigNumber(item.stakePutNum)
       num = num.times(Math.pow(10,6))  
@@ -583,6 +625,8 @@ export default {
       })
     },
     async doExit(item,index){
+        this.$message.success('Comming Soon!')
+        return
       let that = this  
       let num = new BigNumber(item.withPutNum)
       num = num.times(Math.pow(10,6))  
@@ -602,6 +646,8 @@ export default {
       })
     },
     toApprove(item,index,type){//授权
+        this.$message.success('Comming Soon!')
+        return
         let that = this
         if(type==0){
             this.pool1List[index].doApproved = true
@@ -629,6 +675,8 @@ export default {
   created(){
     const that = this
     this.$initTronWeb().then(function(tronWeb) {
+        that.contPop = false
+        that.isLogin = true
       that.init()
     })
   }
@@ -1082,9 +1130,11 @@ export default {
                     width:100%;
                     padding-top:180px;
                     h2{
-                        font-size: 24%;
+                        font-size: 24px;
                         color:#FFE1B8;
                         line-height:24px;
+                        width:80%;
+                        margin:0 auto;
                     }
                     h3{
                         font-size:44px;
