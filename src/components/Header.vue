@@ -6,7 +6,7 @@
             <a class="menu" :class="active==1?'active':''" @click="linkTo(1)" to="/Features">Features</a>
             <a class="menu" :class="active==2?'active':''" @click="linkTo(2)" to="/">FAQ</a>
             <a class="menu" :class="active==3?'active':''" @click="linkTo(3)" to="/">Stake</a>
-            <a class="menu" href="https://sheroswap.org/#/pool/connectpool" target="_black">Swap</a>
+            <a class="menu" href="https://www.sheroswap.org/swap/#/pool/connectpool" target="_black">Swap</a>
         </div>
         <div class="options">
             <div class="wallet" @click="showLinkPop">
@@ -43,6 +43,7 @@
             <li><a class="menu" :class="active==1?'active':''" @click="linkTo(1)" to="/Features">Features</a></li>
             <li><a class="menu" :class="active==2?'active':''" @click="linkTo(2)" to="/">FAQ</a></li>
             <li><a class="menu" :class="active==3?'active':''" @click="linkTo(3)" to="/">Stake</a></li>
+            <li><a class="menu" href="https://www.sheroswap.org/swap/#/pool/connectpool" target="_black">Swap</a></li>
           </ul>
           <div class="langAndSet">
             <!-- <div class="setbox" @click.stop="tolerPop=true"><i class="setico"></i>Setting</div> -->

@@ -376,36 +376,36 @@ export default {
               earnsTotal:{'NFTO':'0','yNFTO':'0'},
               noWithdrow:{'NFTO':'0','yNFTO':'0'}
           },
-        //   {
-        //       poool:1,
-        //       active:3,
-        //       name:'POSCHE',
-        //       img:poscheimg,
-        //       apr:'0',
-        //       balance:0,
-        //       unBalance:0,
-        //       stakePutNum:0,
-        //       withPutNum:0,
-        //       tokenAddress:ipConfig.POSCHE,
-        //       farmAddress:ipConfig.PoscheFarmPool,
-        //       earnsTotal:{'NFTO':'0','yNFTO':'0'},
-        //       noWithdrow:{'NFTO':'0','yNFTO':'0'}
-        //   },
-        //   {
-        //       poool:1,
-        //       active:4,
-        //       name:'OSK',
-        //       img:oskimg,
-        //       apr:'0',
-        //       balance:0,
-        //       unBalance:0,
-        //       stakePutNum:0,
-        //       withPutNum:0,
-        //       tokenAddress:ipConfig.OSK,
-        //       farmAddress:ipConfig.OskFarmPool,
-        //       earnsTotal:{'NFTO':'0','yNFTO':'0'},
-        //       noWithdrow:{'NFTO':'0','yNFTO':'0'}
-        //   }
+          {
+              poool:1,
+              active:3,
+              name:'POSCHE',
+              img:poscheimg,
+              apr:'0',
+              balance:0,
+              unBalance:0,
+              stakePutNum:0,
+              withPutNum:0,
+              tokenAddress:ipConfig.POSCHE,
+              farmAddress:ipConfig.PoscheFarmPool,
+              earnsTotal:{'NFTO':'0','yNFTO':'0'},
+              noWithdrow:{'NFTO':'0','yNFTO':'0'}
+          },
+          {
+              poool:1,
+              active:4,
+              name:'OSK',
+              img:oskimg,
+              apr:'0',
+              balance:0,
+              unBalance:0,
+              stakePutNum:0,
+              withPutNum:0,
+              tokenAddress:ipConfig.OSK,
+              farmAddress:ipConfig.OskFarmPool,
+              earnsTotal:{'NFTO':'0','yNFTO':'0'},
+              noWithdrow:{'NFTO':'0','yNFTO':'0'}
+          }
       ],
       pool2List:[
           {
@@ -478,20 +478,21 @@ export default {
      getAllwance(){
          let that = this
          this.pool1List.forEach((item,index)=>{
+             that.getAccountInfo(item,index,0)
+             that.getBalance(item,index,0)
             that.getAllowance(item,index,0)
-            that.getBalance(item,index,0)
-            that.getAccountInfo(item,index,0)
+            
          })
-         this.pool2List.forEach((item,index)=>{
-            that.getAllowance(item,index,1)
-            that.getBalance(item,index,1)
-            that.getAccountInfo(item,index,1)
-         })
-         this.pool3List.forEach((item,index)=>{
-            that.getAllowance(item,index,2)
-            that.getBalance(item,index,2)
-            that.getAccountInfo(item,index,3)
-         })
+        //  this.pool2List.forEach((item,index)=>{
+        //     that.getAllowance(item,index,1)
+        //     that.getBalance(item,index,1)
+        //     that.getAccountInfo(item,index,1)
+        //  })
+        //  this.pool3List.forEach((item,index)=>{
+        //     that.getAllowance(item,index,2)
+        //     that.getBalance(item,index,2)
+        //     that.getAccountInfo(item,index,3)
+        //  })
      },
     getAllowance(item,index,type){
         if(item.name == 'TRX'){
@@ -542,6 +543,7 @@ export default {
         }
     },
     async getAccountInfo(item,index,type){//获取总收益及apr
+    debugger
       const farmContract = await window.tronWeb.contract().at(item.farmAddress)
       const totalEarn = await farmContract['earnedOf'](window.tronWeb.defaultAddress.base58).call()
       const claimEarn = await farmContract['claimOf'](window.tronWeb.defaultAddress.base58).call()
@@ -549,9 +551,9 @@ export default {
       item.unBalance = accountInfo.NowTotalJoinAmount / Math.pow(10,6)
       item.apr = (totalEarn.Apr / Math.pow(10,6)).toFixed(0)
       item.earnsTotal.NFTO = (totalEarn.Earned / Math.pow(10,6)).toFixed(2)
-      item.earnsTotal.yNFTO = (totalEarn.Earned * 114 / Math.pow(10,6)).toFixed(2)
+      item.earnsTotal.yNFTO = (totalEarn.Earned * 57 / Math.pow(10,6)).toFixed(2)
       item.noWithdrow.NFTO = (claimEarn.ClaimAmount / Math.pow(10,6)).toFixed(2)
-      item.noWithdrow.yNFTO = (claimEarn.ClaimAmount * 114 / Math.pow(10,6)).toFixed(2)
+      item.noWithdrow.yNFTO = (claimEarn.ClaimAmount * 57 / Math.pow(10,6)).toFixed(2)
       this.totalEarnNfto += parseFloat(item.earnsTotal.NFTO)
         if(type==0){
             this.pool1List[index] = item
@@ -562,8 +564,10 @@ export default {
         }
     },
     async doDeposit(item,index){
-        this.$message.success('Comming Soon!')
-        return
+        if(item.poool == 2 || item.poool == 3){
+            this.$message.success('Comming Soon!')
+            return
+        }
       let that = this  
       if(item.name == 'TRX'){
           let Contract = await window.tronWeb.contract().at(item.farmAddress)
@@ -599,8 +603,10 @@ export default {
       })
     },
     async claimed(item,index){
-        this.$message.success('Comming Soon!')
-        return
+        if(item.poool == 2 || item.poool == 3){
+            this.$message.success('Comming Soon!')
+            return
+        }
       let that = this  
       let num = new BigNumber(item.stakePutNum)
       num = num.times(Math.pow(10,6))  
@@ -625,8 +631,10 @@ export default {
       })
     },
     async doExit(item,index){
-        this.$message.success('Comming Soon!')
-        return
+        if(item.poool == 2 || item.poool == 3){
+            this.$message.success('Comming Soon!')
+            return
+        }
       let that = this  
       let num = new BigNumber(item.withPutNum)
       num = num.times(Math.pow(10,6))  
@@ -646,8 +654,10 @@ export default {
       })
     },
     toApprove(item,index,type){//授权
-        this.$message.success('Comming Soon!')
-        return
+        if(item.poool == 2 || item.poool == 3){
+            this.$message.success('Comming Soon!')
+            return
+        }
         let that = this
         if(type==0){
             this.pool1List[index].doApproved = true
