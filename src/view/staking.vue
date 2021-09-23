@@ -22,7 +22,7 @@
                 <p class="poolTips">Stake SHERO、USDT、TRX、POSCHE、OSK  to earn yNFTO、NFTO</p>
                 <div class="thead">
                     <div class="th">Token Name</div>
-                    <div class="th">APR</div>
+                    <!-- <div class="th">APR</div> -->
                     <div class="th">Earned</div>
                 </div>
                 <div class="poolList">
@@ -34,7 +34,7 @@
                                 {{item.name}}
                                 <i class="seltoken" @click="selPop = true"></i>
                             </div>
-                            <div class="apr">{{item.apr}}%</div>
+                            <!-- <div class="apr">{{item.apr}}%</div> -->
                             <div class="earned">
                                 <div>
                                     <p>{{item.earnsTotal.yNFTO}} yNFTO</p>
@@ -473,15 +473,16 @@ export default {
      async getNftoBalance(){
         const tokenContract = await window.tronWeb.contract().at(ipConfig.NFTO)
         const tokenBalance = await tokenContract['balanceOf'](window.tronWeb.defaultAddress.base58).call()
-        this.nftoBalance = (tokenBalance / Math.pow(10, 6)).toFixed(2)
+        this.nftoBalance = (tokenBalance / Math.pow(10, 6)).toFixed(4)
      },
      getAllwance(){
          let that = this
          this.pool1List.forEach((item,index)=>{
-             that.getAccountInfo(item,index,0)
+             setTimeout(() => {
+                 that.getAccountInfo(item,index,0)
+             }, 1000);
              that.getBalance(item,index,0)
-            that.getAllowance(item,index,0)
-            
+             that.getAllowance(item,index,0)
          })
         //  this.pool2List.forEach((item,index)=>{
         //     that.getAllowance(item,index,1)
@@ -533,8 +534,13 @@ export default {
         }
         const tokenContract = await window.tronWeb.contract().at(item.tokenAddress)
         const tokenBalance = await tokenContract['balanceOf'](window.tronWeb.defaultAddress.base58).call()
-        let balance = (tokenBalance / Math.pow(10, 6)).toFixed(2+1)
-        balance = balance.splice(0, balance.length - 1);
+        let balance = (tokenBalance / Math.pow(10, 6))
+        if(item.name == 'OSK'){
+            balance = (tokenBalance / Math.pow(10, 18))
+        }
+        balance = Math.floor(100*balance);
+        balance = (balance/100).toFixed(2);
+        debugger
         if(type==0){
             this.pool1List[index].balance = balance
         }else if(type==1){
@@ -544,17 +550,21 @@ export default {
         }
     },
     async getAccountInfo(item,index,type){//获取总收益及apr
-      const farmContract = await window.tronWeb.contract().at(item.f0armAddress)
+      const farmContract = await window.tronWeb.contract().at(item.farmAddress)
       const totalEarn = await farmContract['earnedOf'](window.tronWeb.defaultAddress.base58).call()
       const claimEarn = await farmContract['claimOf'](window.tronWeb.defaultAddress.base58).call()
       const accountInfo = await farmContract['farmAccountOf'](window.tronWeb.defaultAddress.base58).call()
       item.unBalance = accountInfo.NowTotalJoinAmount / Math.pow(10,6)
-      item.apr = (totalEarn.Apr / Math.pow(10,6)).toFixed(0)
+      if(item.name == 'OSK'){
+        item.unBalance = accountInfo.NowTotalJoinAmount / Math.pow(10,18)
+      }
+      item.apr = parseInt(totalEarn.Apr)
       item.earnsTotal.NFTO = (totalEarn.Earned / Math.pow(10,6)).toFixed(6)
       item.earnsTotal.yNFTO = (totalEarn.Earned * 57 / Math.pow(10,6)).toFixed(6)
       item.noWithdrow.NFTO = (claimEarn.ClaimAmount / Math.pow(10,6)).toFixed(6)
       item.noWithdrow.yNFTO = (claimEarn.ClaimAmount * 57 / Math.pow(10,6)).toFixed(6)
       this.totalEarnNfto += parseFloat(item.earnsTotal.NFTO)
+      console.log(item.name,totalEarn.Apr)
         if(type==0){
             this.pool1List[index] = item
         }else if(type==1){
@@ -585,7 +595,7 @@ export default {
           return
       }
       let num = new BigNumber(item.stakePutNum)
-      num = num.times(Math.pow(10,6))  
+      num = item.name == 'OSK'?num.times(Math.pow(10,18)) :num.times(Math.pow(10,6))  
       var functionSelector = 'joinFarm(uint256)'
       var parameter = [
         { type: 'uint256', value: num.toFixed() }
@@ -609,7 +619,8 @@ export default {
         }
       let that = this  
       let num = new BigNumber(item.stakePutNum)
-      num = num.times(Math.pow(10,6))  
+    //   num = num.times(Math.pow(10,6))  
+      num = item.name == 'OSK'?num.times(Math.pow(10,18)) :num.times(Math.pow(10,6))  
       var functionSelector = 'claim()'
       var parameter = [
       ]
@@ -637,7 +648,8 @@ export default {
         }
       let that = this  
       let num = new BigNumber(item.withPutNum)
-      num = num.times(Math.pow(10,6))  
+    //   num = num.times(Math.pow(10,6))  
+      num = item.name == 'OSK'?num.times(Math.pow(10,18)) :num.times(Math.pow(10,6))  
       var functionSelector = 'exitFarm(uint256)'
       var parameter = [
         { type: 'uint256', value: num.toFixed() }

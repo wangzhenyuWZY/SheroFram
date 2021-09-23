@@ -13,10 +13,10 @@
                 <img src="../assets/icon_wallet_green.png">
                 {{isLogin?defaultAddress:'Connect to wallet'}}
             </div>
-            <div class="lang">
+            <!-- <div class="lang">
                 English
                 <img src="../assets/icon_lang.png">
-            </div>
+            </div> -->
             <!-- <div class="setting">
                 <img src="../assets/icon_setting.png">
             </div> -->
@@ -47,7 +47,7 @@
           </ul>
           <div class="langAndSet">
             <!-- <div class="setbox" @click.stop="tolerPop=true"><i class="setico"></i>Setting</div> -->
-            <div class="setbox" @click="hdel"><i class="langico"></i>简体中文</div>
+            <!-- <div class="setbox" @click="hdel"><i class="langico"></i>简体中文</div> -->
             <div class="cantactus">
               <a target="_black" href="/"><img src="../assets/icon_脸书.png"></a>
               <a target="_black" href="/"><img src="../assets/icon_推特.png"></a>
