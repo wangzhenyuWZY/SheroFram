@@ -10,7 +10,7 @@
             <div class="dataPanel">
                 <div class="dataItem">
                     <h2>NFTO earned</h2>
-                    <h3>{{totalEarnNfto.toFixed(2)}}</h3>
+                    <h3>{{totalEarnNfto.toFixed(4)}}</h3>
                 </div>
                 <div class="dataItem">
                     <h2>Your NFTO wallet balance</h2>
@@ -533,7 +533,8 @@ export default {
         }
         const tokenContract = await window.tronWeb.contract().at(item.tokenAddress)
         const tokenBalance = await tokenContract['balanceOf'](window.tronWeb.defaultAddress.base58).call()
-        let balance = (tokenBalance / Math.pow(10, 6)).toFixed(2)
+        let balance = (tokenBalance / Math.pow(10, 6)).toFixed(2+1)
+        balance = balance.splice(0, balance.length - 1);
         if(type==0){
             this.pool1List[index].balance = balance
         }else if(type==1){
@@ -543,17 +544,16 @@ export default {
         }
     },
     async getAccountInfo(item,index,type){//获取总收益及apr
-    debugger
-      const farmContract = await window.tronWeb.contract().at(item.farmAddress)
+      const farmContract = await window.tronWeb.contract().at(item.f0armAddress)
       const totalEarn = await farmContract['earnedOf'](window.tronWeb.defaultAddress.base58).call()
       const claimEarn = await farmContract['claimOf'](window.tronWeb.defaultAddress.base58).call()
       const accountInfo = await farmContract['farmAccountOf'](window.tronWeb.defaultAddress.base58).call()
       item.unBalance = accountInfo.NowTotalJoinAmount / Math.pow(10,6)
       item.apr = (totalEarn.Apr / Math.pow(10,6)).toFixed(0)
-      item.earnsTotal.NFTO = (totalEarn.Earned / Math.pow(10,6)).toFixed(2)
-      item.earnsTotal.yNFTO = (totalEarn.Earned * 57 / Math.pow(10,6)).toFixed(2)
-      item.noWithdrow.NFTO = (claimEarn.ClaimAmount / Math.pow(10,6)).toFixed(2)
-      item.noWithdrow.yNFTO = (claimEarn.ClaimAmount * 57 / Math.pow(10,6)).toFixed(2)
+      item.earnsTotal.NFTO = (totalEarn.Earned / Math.pow(10,6)).toFixed(6)
+      item.earnsTotal.yNFTO = (totalEarn.Earned * 57 / Math.pow(10,6)).toFixed(6)
+      item.noWithdrow.NFTO = (claimEarn.ClaimAmount / Math.pow(10,6)).toFixed(6)
+      item.noWithdrow.yNFTO = (claimEarn.ClaimAmount * 57 / Math.pow(10,6)).toFixed(6)
       this.totalEarnNfto += parseFloat(item.earnsTotal.NFTO)
         if(type==0){
             this.pool1List[index] = item
@@ -961,7 +961,7 @@ export default {
                                     background-size:100% 100%;
                                 }
                                 p{
-                                    font-size:16px;
+                                    font-size:14px;
                                     color:#fff;
                                     line-height:19px;
                                 }
@@ -1270,7 +1270,7 @@ export default {
                             .earned{
                                 width:auto;
                                 p{
-                                    font-size:14px;
+                                    font-size:12px;
                                     line-height:17px;
                                     white-space: nowrap;
                                 }
@@ -1297,10 +1297,10 @@ export default {
                                         padding-top:70px;
                                     }
                                     .nums{
-                                        font-size:44px;
-                                        line-height:44px;
+                                        font-size:24px;
+                                        line-height:24px;
                                         span{
-                                            font-size:18px;
+                                            font-size:14px;
                                         }
                                         padding-bottom:36px;
                                     }

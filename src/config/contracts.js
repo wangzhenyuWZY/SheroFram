@@ -13,7 +13,7 @@ ipConfig = {
   SheroFarmPool:'TPhvzQiw6HW1hYRPbeMehcprFtR6EqA7Nq',
   UsdtFarmPool:'TP24Ew7UQiEbXja5mzeCA2Q4kzXmcnUgBb',
   TrxFarmPool:'TSzECrrvztV2Ad7Cz24qCThpZVCtgdtWdv',
-  OskFarmPool:'TNYEwMAmXPBv2qLQ1NwQfbTpdQ3EJLzEWV',
+  OskFarmPool:'TTF1gchZSGorjh2q5QDRFhuGoKqx5gkcwU',
   PoscheFarmPool:'TCaipR3Nm3Ym26bGhxbspUSq9Kxi1J73Hs',
   SheroswapLP1:'TD5LHPK2jz2vXD9G3yE9konXKd3jsRQZPo',
   JustswapLP2:'TDAZfnCVruSZuUw37KUY61VPQYFFPHfXim',
