@@ -405,6 +405,36 @@ export default {
               farmAddress:ipConfig.OskFarmPool,
               earnsTotal:{'NFTO':'0','yNFTO':'0'},
               noWithdrow:{'NFTO':'0','yNFTO':'0'}
+          },
+          {
+              poool:1,
+              active:5,
+              name:'OSK(old)',
+              img:oskimg,
+              apr:'0',
+              balance:0,
+              unBalance:0,
+              stakePutNum:0,
+              withPutNum:0,
+              tokenAddress:ipConfig.OSK,
+              farmAddress:'TNYEwMAmXPBv2qLQ1NwQfbTpdQ3EJLzEWV',
+              earnsTotal:{'NFTO':'0','yNFTO':'0'},
+              noWithdrow:{'NFTO':'0','yNFTO':'0'}
+          },
+          {
+              poool:1,
+              active:6,
+              name:'USDT(old)',
+              img:usdtimg,
+              apr:'0',
+              balance:0,
+              unBalance:0,
+              stakePutNum:0,
+              withPutNum:0,
+              tokenAddress:ipConfig.USDT,
+              farmAddress:'TP24Ew7UQiEbXja5mzeCA2Q4kzXmcnUgBb',
+              earnsTotal:{'NFTO':'0','yNFTO':'0'},
+              noWithdrow:{'NFTO':'0','yNFTO':'0'}
           }
       ],
       pool2List:[
@@ -535,12 +565,11 @@ export default {
         const tokenContract = await window.tronWeb.contract().at(item.tokenAddress)
         const tokenBalance = await tokenContract['balanceOf'](window.tronWeb.defaultAddress.base58).call()
         let balance = (tokenBalance / Math.pow(10, 6))
-        if(item.name == 'OSK'){
+        if(item.name == 'OSK' || item.name == 'OSK(old)'){
             balance = (tokenBalance / Math.pow(10, 18))
         }
         balance = Math.floor(100*balance);
         balance = (balance/100).toFixed(2);
-        debugger
         if(type==0){
             this.pool1List[index].balance = balance
         }else if(type==1){
@@ -555,7 +584,7 @@ export default {
       const claimEarn = await farmContract['claimOf'](window.tronWeb.defaultAddress.base58).call()
       const accountInfo = await farmContract['farmAccountOf'](window.tronWeb.defaultAddress.base58).call()
       item.unBalance = accountInfo.NowTotalJoinAmount / Math.pow(10,6)
-      if(item.name == 'OSK'){
+      if(item.name == 'OSK' || item.name == 'OSK(old)'){
         item.unBalance = accountInfo.NowTotalJoinAmount / Math.pow(10,18)
       }
       item.apr = parseInt(totalEarn.Apr)
@@ -574,6 +603,9 @@ export default {
         }
     },
     async doDeposit(item,index){
+        if(item.name == 'OSK(old)' || item.name == 'USDT(old)'){
+            return
+        }
         if(item.poool == 2 || item.poool == 3){
             this.$message.success('Comming Soon!')
             return
@@ -613,6 +645,9 @@ export default {
       })
     },
     async claimed(item,index){
+        if(item.name == 'OSK(old)' || item.name == 'USDT(old)'){
+            return
+        }
         if(item.poool == 2 || item.poool == 3){
             this.$message.success('Comming Soon!')
             return
@@ -649,10 +684,10 @@ export default {
       let that = this  
       let num = new BigNumber(item.withPutNum)
     //   num = num.times(Math.pow(10,6))  
-      num = item.name == 'OSK'?num.times(Math.pow(10,18)) :num.times(Math.pow(10,6))  
+      num = (item.name == 'OSK' || item.name == 'OSK(old)')?num.times(Math.pow(10,18)) :num.times(Math.pow(10,6))  
       var functionSelector = 'exitFarm(uint256)'
       var parameter = [
-        { type: 'uint256', value: num.toFixed() }
+        { type: 'uint256', value: num+'' }
       ]
       const transaction = await window.tronWeb.transactionBuilder.triggerSmartContract(item.farmAddress, functionSelector, {}, parameter)
       if (!transaction.result || !transaction.result.result) { return console.error('Unknown error: ' + transaction, null, 2) }
@@ -666,6 +701,9 @@ export default {
       })
     },
     toApprove(item,index,type){//授权
+        if(item.name == 'OSK(old)' || item.name == 'USDT(old)'){
+            return
+        }
         if(item.poool == 2 || item.poool == 3){
             this.$message.success('Comming Soon!')
             return
@@ -877,7 +915,7 @@ export default {
                 }
                 &.pool1{
                     width:1280px;
-                    height:1171px;
+                    height:1330px;
                     background:url(../assets/farm9.png) no-repeat center;
                     background-size:100% 100%;
                     padding:0 170px 0;

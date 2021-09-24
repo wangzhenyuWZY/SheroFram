@@ -11,7 +11,7 @@ ipConfig = {
   NFTO:'TSgwYvPUaDVZo3iXRY2KdW4RQPuEm3Quch',
   yNFTO:'TPqcmCfaeaTVKumRtn4csTSPF8G8rA9sSK',
   SheroFarmPool:'TPhvzQiw6HW1hYRPbeMehcprFtR6EqA7Nq',
-  UsdtFarmPool:'TP24Ew7UQiEbXja5mzeCA2Q4kzXmcnUgBb',
+  UsdtFarmPool:'TJr8U4QGgeGCe3E6Cm2aBGRvSK4VCNK6tw',
   TrxFarmPool:'TSzECrrvztV2Ad7Cz24qCThpZVCtgdtWdv',
   OskFarmPool:'TTF1gchZSGorjh2q5QDRFhuGoKqx5gkcwU',
   PoscheFarmPool:'TCaipR3Nm3Ym26bGhxbspUSq9Kxi1J73Hs',
