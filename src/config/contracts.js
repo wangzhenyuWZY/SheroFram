@@ -10,7 +10,7 @@ ipConfig = {
   POSCHE:'TYofwf9oM6CPU1rCTwNnEuwzhB5DTQu8rW',
   NFTO:'TSgwYvPUaDVZo3iXRY2KdW4RQPuEm3Quch',
   yNFTO:'TPqcmCfaeaTVKumRtn4csTSPF8G8rA9sSK',
-  SheroFarmPool:'TPhvzQiw6HW1hYRPbeMehcprFtR6EqA7Nq',
+  SheroFarmPool:'TS9GWd8EixNLhCFEV7vzyrt2fBMsfG2AhQ',
   UsdtFarmPool:'TJr8U4QGgeGCe3E6Cm2aBGRvSK4VCNK6tw',
   TrxFarmPool:'TSzECrrvztV2Ad7Cz24qCThpZVCtgdtWdv',
   OskFarmPool:'TTF1gchZSGorjh2q5QDRFhuGoKqx5gkcwU',

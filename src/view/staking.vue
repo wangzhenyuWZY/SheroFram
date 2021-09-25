@@ -334,7 +334,7 @@ export default {
           {
               poool:1,
               active:0,
-              name:'SHERO',
+              name:'SHERO(High APR)',
               img:sheroimg,
               apr:'0',
               balance:0,
@@ -349,6 +349,21 @@ export default {
           {
               poool:1,
               active:1,
+              name:'SHERO(old)',
+              img:sheroimg,
+              apr:'0',
+              balance:0,
+              unBalance:0,
+              stakePutNum:0,
+              withPutNum:0,
+              tokenAddress:ipConfig.SHERO,
+              farmAddress:'TPhvzQiw6HW1hYRPbeMehcprFtR6EqA7Nq',
+              earnsTotal:{'NFTO':'0','yNFTO':'0'},
+              noWithdrow:{'NFTO':'0','yNFTO':'0'}
+          },
+          {
+              poool:1,
+              active:2,
               name:'USDT',
               img:usdtimg,
               apr:'0',
@@ -363,7 +378,7 @@ export default {
           },
           {
               poool:1,
-              active:2,
+              active:3,
               name:'TRX',
               img:trximg,
               apr:'0',
@@ -378,7 +393,7 @@ export default {
           },
           {
               poool:1,
-              active:3,
+              active:4,
               name:'POSCHE',
               img:poscheimg,
               apr:'0',
@@ -393,7 +408,7 @@ export default {
           },
           {
               poool:1,
-              active:4,
+              active:5,
               name:'OSK',
               img:oskimg,
               apr:'0',
@@ -403,21 +418,6 @@ export default {
               withPutNum:0,
               tokenAddress:ipConfig.OSK,
               farmAddress:ipConfig.OskFarmPool,
-              earnsTotal:{'NFTO':'0','yNFTO':'0'},
-              noWithdrow:{'NFTO':'0','yNFTO':'0'}
-          },
-          {
-              poool:1,
-              active:5,
-              name:'OSK(old)',
-              img:oskimg,
-              apr:'0',
-              balance:0,
-              unBalance:0,
-              stakePutNum:0,
-              withPutNum:0,
-              tokenAddress:ipConfig.OSK,
-              farmAddress:'TNYEwMAmXPBv2qLQ1NwQfbTpdQ3EJLzEWV',
               earnsTotal:{'NFTO':'0','yNFTO':'0'},
               noWithdrow:{'NFTO':'0','yNFTO':'0'}
           },
