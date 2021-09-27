@@ -121,7 +121,7 @@ const getMyBalanceInPool = (pair) => { // 获取Pool中我的LPtoken余额
     var parameter = [
       { type: 'address', value: window.tronWeb.defaultAddress.base58 }
     ]
-    window.tronWeb.transactionBuilder.triggerConstantContract(pair.address, functionSelector, {}, parameter).then((transaction) => {
+    window.tronWeb.transactionBuilder.triggerConstantContract(pair.tokenAddress, functionSelector, {}, parameter).then((transaction) => {
       const myBalanceInPool = parseInt(transaction.constant_result[0], 16)
       resolve(myBalanceInPool)
     })

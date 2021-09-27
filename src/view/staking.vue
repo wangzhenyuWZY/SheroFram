@@ -289,7 +289,8 @@ import Ipopup from '../components/ipopup.vue'
 import {
   approved,
   allowance,
-  getConfirmedTransaction
+  bPoolAllowance,
+  getMyBalanceInPool
 } from '../utils/tronwebFn'
 
 import sheroimg from '../assets/farm4.png'
@@ -520,13 +521,24 @@ export default {
         //     that.getAccountInfo(item,index,1)
         //  })
          this.pool3List.forEach((item,index)=>{
-            that.getAllowance(item,index,2)
-            that.getBalance(item,index,2)
             that.getAccountInfo(item,index,3)
+            getMyBalanceInPool(item).then((res) => {
+                let balance = res/Math.pow(10,6)
+                balance = Math.floor(100*balance);
+                item.balance = (balance/100).toFixed(2);
+            })
+            bPoolAllowance(item.tokenAddress, item.farmAddress).then((res) => {
+                const isApproved = parseInt(res.constant_result[0], 16)
+                if (isApproved == 0) {
+                    item.isApproved = false
+                } else {
+                    item.isApproved = true
+                }
+            })
          })
      },
     getAllowance(item,index,type){
-        if(item.name == 'TRX'){
+        if(item.name == 'TRX' || item.poool === 3){
             return
         }
         allowance(item.tokenAddress, item.farmAddress).then((res) => {
@@ -705,7 +717,8 @@ export default {
           })
       })
     },
-    toApprove(item,index,type){//授权
+    async toApprove(item,index,type){//授权
+        let that = this
         if(item.name == 'OSK(old)' || item.name == 'USDT(old)'){
             return
         }
@@ -713,7 +726,31 @@ export default {
             this.$message.success('Comming Soon!')
             return
         }
-        let that = this
+        if(item.poool == 3){
+            var functionSelector = 'approve(address,uint256)'
+            var parameter = [
+                { type: 'address', value: item.farmAddress },
+                { type: 'uint256', value: '1000000000000000000000000000000' }
+            ]
+            const transaction = await window.tronWeb.transactionBuilder.triggerSmartContract(
+                item.tokenAddress,
+                functionSelector,
+                { shouldPollResponse: true },
+                parameter
+            )
+            window.tronWeb.trx
+                .sign(transaction.transaction)
+                .then(function(signedTransaction) {
+                window.tronWeb.trx
+                    .sendRawTransaction(signedTransaction)
+                    .then(function(res) {
+                        that.pool3List[index].doApproved = false
+                        that.pool3List[index].isApproved = true
+                    })
+                })
+            return
+        }
+        
         if(type==0){
             this.pool1List[index].doApproved = true
         }else if(type==1){
