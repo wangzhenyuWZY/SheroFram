@@ -16,8 +16,8 @@ ipConfig = {
   OskFarmPool:'TTF1gchZSGorjh2q5QDRFhuGoKqx5gkcwU',
   PoscheFarmPool:'TCaipR3Nm3Ym26bGhxbspUSq9Kxi1J73Hs',
   SheroswapLP1:'TD5LHPK2jz2vXD9G3yE9konXKd3jsRQZPo',
-  JustswapLP2:'TDAZfnCVruSZuUw37KUY61VPQYFFPHfXim',
+  JustswapLP2:'TMrrdZXQDAgegJftibQffGTF1RXUHYbaV1',
   TwoFarmPool:'TCxVHP6EQSLFJT9poUAtiXGfitarmjnwMo',
-  ThreeFarmPool:'TYc4cMC6dRVjwexZ2PyK4Xm7edJt8okNM7'
+  ThreeFarmPool:'TEnzCF1ubV4tEyRssr1ANcFSnVxyi4FBKm'
 }
 export default ipConfig

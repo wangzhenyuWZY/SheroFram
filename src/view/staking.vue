@@ -346,21 +346,21 @@ export default {
               earnsTotal:{'NFTO':'0','yNFTO':'0'},
               noWithdrow:{'NFTO':'0','yNFTO':'0'}
           },
-          {
-              poool:1,
-              active:1,
-              name:'SHERO(old)',
-              img:sheroimg,
-              apr:'0',
-              balance:0,
-              unBalance:0,
-              stakePutNum:0,
-              withPutNum:0,
-              tokenAddress:ipConfig.SHERO,
-              farmAddress:'TPhvzQiw6HW1hYRPbeMehcprFtR6EqA7Nq',
-              earnsTotal:{'NFTO':'0','yNFTO':'0'},
-              noWithdrow:{'NFTO':'0','yNFTO':'0'}
-          },
+        //   {
+        //       poool:1,
+        //       active:1,
+        //       name:'SHERO(old)',
+        //       img:sheroimg,
+        //       apr:'0',
+        //       balance:0,
+        //       unBalance:0,
+        //       stakePutNum:0,
+        //       withPutNum:0,
+        //       tokenAddress:ipConfig.SHERO,
+        //       farmAddress:'TPhvzQiw6HW1hYRPbeMehcprFtR6EqA7Nq',
+        //       earnsTotal:{'NFTO':'0','yNFTO':'0'},
+        //       noWithdrow:{'NFTO':'0','yNFTO':'0'}
+        //   },
           {
               poool:1,
               active:2,
@@ -519,11 +519,11 @@ export default {
         //     that.getBalance(item,index,1)
         //     that.getAccountInfo(item,index,1)
         //  })
-        //  this.pool3List.forEach((item,index)=>{
-        //     that.getAllowance(item,index,2)
-        //     that.getBalance(item,index,2)
-        //     that.getAccountInfo(item,index,3)
-        //  })
+         this.pool3List.forEach((item,index)=>{
+            that.getAllowance(item,index,2)
+            that.getBalance(item,index,2)
+            that.getAccountInfo(item,index,3)
+         })
      },
     getAllowance(item,index,type){
         if(item.name == 'TRX'){
@@ -561,6 +561,11 @@ export default {
                 that.pool1List[index].balance = window.tronWeb.fromSun(account.balance)
             })
             return
+        }
+        if(item.poool == 3){
+            const tokenContract = await window.tronWeb.contract().at(item.tokenAddress)
+            debugger
+            console.log(tokenContract)
         }
         const tokenContract = await window.tronWeb.contract().at(item.tokenAddress)
         const tokenBalance = await tokenContract['balanceOf'](window.tronWeb.defaultAddress.base58).call()
@@ -606,7 +611,7 @@ export default {
         if(item.name == 'OSK(old)' || item.name == 'USDT(old)'){
             return
         }
-        if(item.poool == 2 || item.poool == 3){
+        if(item.poool == 2){
             this.$message.success('Comming Soon!')
             return
         }
@@ -648,7 +653,7 @@ export default {
         if(item.name == 'OSK(old)' || item.name == 'USDT(old)'){
             return
         }
-        if(item.poool == 2 || item.poool == 3){
+        if(item.poool == 2){
             this.$message.success('Comming Soon!')
             return
         }
@@ -677,7 +682,7 @@ export default {
       })
     },
     async doExit(item,index){
-        if(item.poool == 2 || item.poool == 3){
+        if(item.poool == 2){
             this.$message.success('Comming Soon!')
             return
         }
@@ -704,7 +709,7 @@ export default {
         if(item.name == 'OSK(old)' || item.name == 'USDT(old)'){
             return
         }
-        if(item.poool == 2 || item.poool == 3){
+        if(item.poool == 2){
             this.$message.success('Comming Soon!')
             return
         }
